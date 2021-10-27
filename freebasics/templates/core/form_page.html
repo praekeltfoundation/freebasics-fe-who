@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags static core_tags i18n mptt_tags %}
+
+{% block content %}
+<div class="surveys">
+  <div class="surveys__title">{{ page.title }}</div>
+  <div class="surveys__intro">{{ page.intro }}</div>
+
+  <form action="{% pageurl page.specific %}" method="POST" class="surveys__form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Submit" >
+  </form>
+
+</div>
+{% endblock %}

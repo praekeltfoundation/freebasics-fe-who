@@ -1,0 +1,10 @@
+
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block body_class %}template-404{% endblock %}
+
+{% block content %}
+    <h1 class="heading heading--subtitle">{% trans "Page not found" %}</h1>
+    <h2 class="heading heading--feedback-title">{% trans "Sorry, this page could not be found." %}</h1>
+{% endblock %}

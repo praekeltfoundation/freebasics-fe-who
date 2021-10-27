@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags wagtailembeds_tags static core_tags i18n mptt_tags %}
+
+{% block content %}
+<div class="surveys">
+  <div class="surveys__title">{{ page.title }}</div>
+  <div class="surveys__intro">{{ page.intro }}</div>
+
+  <div class="surveys__thank-you">
+      <p>{% if page.thank_you_text %}
+          {{ page.thank_you_text }}
+      {% else %}
+          Thank you for answering the {{ page.title }} survey.
+          {% endif %}</p>
+      <p>Click <a href="{{ request.scheme }}://{{ request.META.HTTP_HOST }}">here</a> to go back to the home page.</p>
+  </div>
+</div>
+{% endblock %}

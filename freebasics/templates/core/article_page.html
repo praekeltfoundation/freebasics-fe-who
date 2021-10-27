@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static freebasics_tags i18n %}
+{% block content %}
+
+<ul class="section-list-nav section-list-nav{{self.get_effective_extra_style_hints}}">
+  {% block breadcrumbs %}
+    {% breadcrumbs %}
+  {% endblock %}
+</ul>
+<div class="article article{{self.get_parent_section.get_effective_extra_style_hints}}">
+  <h1 class="article__title">{{article.title}}</h1>
+  <p class="article__subtitle">{{article.subtitle}}</p>
+
+  <div class="article__content" markdown="1">
+    {% for block in article.body.text %}
+          {{ block.value }}
+    {% endfor %}
+  </div>
+</div>
+
+{% endblock %}
