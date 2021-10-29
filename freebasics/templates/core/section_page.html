@@ -3,9 +3,6 @@
 
 {% block content %}
 <div class="section section--{{section.get_effective_extra_style_hints}}">
-
-
-
     <h1 class="heading heading--homepage">{{section.title}}</h1>
     <ul class="section-list-nav section-list-nav{{self.get_effective_extra_style_hints}}">
       {% block breadcrumbs %}
@@ -13,27 +10,27 @@
       {% endblock %}
     </ul>
   <ul class="article-list">
-  {% for sub_article in children_articles %}
-    <li class="article-list__item{% if forloop.first and not section.get_effective_extra_style_hints %} article-list__item--hero{% endif %}">
-      <div class="article-list__container{% if forloop.first and not section.get_effective_extra_style_hints %} article-list__container--hero{% endif %}">
-
-        <div class="article-list__inner{% if not forloop.first %} article-list__inner--content{% endif %}{% if section.get_effective_extra_style_hints %} article-list__inner--regions{% endif %}">
-          <a href="/{{ article.id }}/" class="article-list__link">
-            <h2 class="article-list__title section-article-list__title">{{sub_article.title}}</h2>
+  {% for article in children_articles %}
+    <li class="article-list__item">
+      <div class="article-list__container">
+        {% if article.feed_image_thumbnail %}
+          <a href="/{{ article.id }}/" class="article-list__image-content">
+              <img src="{{ contentrepo_url }}{{article.feed_image_thumbnail.url}}" alt={{article.feed_image_thumbnail.alt}} class="article-list__image article-list__image--small" height={{article.feed_image_thumbnail.height}} width={{article.feed_image_thumbnail.width}} />
           </a>
-          {% if sub_article.subtitle %}
-          <h4 class="article-list__subtitle">{{sub_article.subtitle}}</h4>
+        {% endif %}
+        <div class="article-list__inner article-list__inner--content">
+          <a href="/{{ article.id }}/" class="article-list__link">
+            <h2 class="article-list__title section-article-list__title">{{article.title}}</h2>
+          </a>
+          {% if article.subtitle %}
+          <h4 class="article-list__subtitle">{{article.subtitle}}</h4>
           {% endif %}
         </div>
 
         {% if section.get_effective_extra_style_hints %}
-          <div class="article-list__buttons">
-            {% for block in sub_article.body %}
-              {% if block.block_type == 'richtext' %}
+            {% for block in article.body %}
                 {{block.value }}
-              {% endif %}
             {% endfor %}
-          </div>
         {% endif %}
       </div>
     </li>

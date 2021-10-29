@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags pagination i18n %}
+{% load i18n %}
 {% block title %}{% trans "Search" %}{% endblock %}
 {% block content %}
 {% if search_results %}
@@ -9,74 +9,19 @@
       {% for page in search_results %}
       <li class="article-list__item article-list__item{{page.get_parent_section.get_effective_extra_style_hints}}">
         <div class="article-list__container">
-        {% with parent_section=page.get_parent_section ancestor=page.get_parent_section.get_ancestors.last %}
-          {% if ancestor.sectionpage.image %}
-            <a href="{% pageurl page %}" class="search__result-item article-list__image-content">
-              {% if  page.image %}
-                {% image page.image width-100 height-100 class="article-list__image article-list__image--small" %}
-              {% endif %}
-            </a>
-            <a href="{% pageurl page %}" class="search__result-item article-list__inner-content">
-              {% if page.title_highlight %}
-                <h2 class="search--result__title search--result__title-highlight">{{page.title_highlight|safe}}</h2>
-              {% else %}
+          <a href="/{{page.id}}/}" class="search__result-item article-list__image-content">
+            {% if page.feed_image_thumbnail %}
+              <img src="{{ contentrepo_url }}{{page.feed_image_thumbnail.url}}" alt={{feed_image_thumbnail.alt}} class="article-list__image article-list__image--small" height={{page.feed_image_thumbnail.height}} width={{page.feed_image_thumbnail.width}} />
+            {% endif %}
+          </a>
+            <a href="/{{page.id}}/" class="search__result-item article-list__inner-content">
                 <h2 class="search--result__title">{{page.title}}</h2>
-              {% endif %}
-              {% if page.subtitle_highlight or page.body_highlight %}
-                <p class="search--result__subtitle highlight-description">
-                  {% if page.subtitle_highlight %}
-                    {{page.subtitle_highlight|safe}}
-                  {% elif page.body_highlight %}
-                    {{page.body_highlight|safe}}
-                  {% endif %}
-                </p>
-              {% else %}
                 <p class="search--result__subtitle">{{page.subtitle}}</p>
-              {% endif %}
             </a>
-          {% else %}
-            <a href="{% pageurl page %}" class="search__result-item article-list__image-content">
-              {% if  page.image %}
-                {% image page.image width-100 height-100 class="article-list__image article-list__image--small" %}
-              {% endif %}
-            </a>
-            <a href="{% pageurl page %}" class="search__result-item article-list__inner-content">
-              {% if page.title_highlight %}
-                <h2 class="search--result__title search--result__title-highlight">{{page.title_highlight|safe}}</h2>
-              {% else %}
-                <h2 class="search--result__title">{{page.title}}</h2>
-              {% endif %}
-              {% if page.subtitle_highlight or page.body_highlight %}
-                <p class="search--result__subtitle highlight-description">
-                  {% if page.subtitle_highlight %}
-                    {{page.subtitle_highlight|safe}}
-                  {% elif page.body_highlight %}
-                    {{page.body_highlight|safe}}
-                  {% endif %}
-                </p>
-              {% else %}
-                <p class="search--result__subtitle">{{page.subtitle}}</p>
-              {% endif %}
-            </a>
-          {% endif %}
-       {% endwith %}
         </div>
       </li>
       {% endfor %}
     </ul>
-  </div>
-  <div class="pagination">
-    {% if search_results.has_previous %}
-        <a href="?p={{ search_results.previous_page_number }}&amp;q={{search_query}}" class="pagination__link pagination__link--previous">
-          <span class="pagination__link--arrow">&larr;</span> Prev</a>
-    {% endif %}
-    <p class="pagination__link pagination__link--current">
-      Page {{ search_results.number }} of {{ search_results.paginator.num_pages }}
-    </p>
-    {% if search_results.has_next %}
-      <a href="?p={{ search_results.next_page_number }}&amp;q={{search_query}}" class="pagination__link pagination__link--next">
-        Next <span class="pagination__link--arrow">&rarr;</span></a>
-    {% endif %}
   </div>
 {% else %}
   <div class="search search--results">
@@ -90,7 +35,7 @@
     <h3 class="search__feedback-title">
       {% trans "No search results were found for " %} &quot;{{search_query}}&quot;
     </h3>
-    <a href="{{request.site.root_page.url}}" class="call-to-action__nav-item call-to-action__nav-item--back-home">{% trans "Back to homepage" %}</a>
+    <a href="/" class="call-to-action__nav-item call-to-action__nav-item--back-home">{% trans "Back to homepage" %}</a>
   </div>
 {% endif %}
 {% endblock %}

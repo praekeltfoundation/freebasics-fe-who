@@ -114,7 +114,7 @@
             <ul class="language-list">
             {% for language in languages %}
               <li class="language-list__item {% if LANGUAGE_CODE == language.language_code %} language-list__item--active{% endif %}">
-                <a href="https://google.com">
+                <a href="/?language_code={{language.language_code}}">
                   {{ language.display_name }}</a>
               </li>
             {% endfor %}
@@ -181,7 +181,7 @@
               <ul class="language-list">
               {% for language in languages %}
                 <li class="language-list__item {% if LANGUAGE_CODE == language.language_code %} language-list__item--active{% endif %}">
-                  <a href="https://google.com">{{ language.display_name }}</a>
+                  <a href="/?language_code={{language.language_code}}">{{ language.display_name }}</a>
                 </li>
               {% endfor %}
               </ul>

@@ -10,8 +10,13 @@
     <div class="section-list section-list{{section.get_effective_extra_style_hints}}">
       <ul class="article-list">
       {% for article in section.articles %}
-        <li class="article-list__item {% if forloop.first %} article-list__item--hero{% endif %}">
-          <div class="article-list__container {% if forloop.first %} article-list__container--hero{% endif %}">
+        <li class="article-list__item">
+          <div class="article-list__container">
+            {% if article.feed_image_thumbnail %}
+              <a href="/{{ article.id }}/" class="article-list__image-content">
+                  <img src="{{ contentrepo_url }}{{article.feed_image_thumbnail.url}}" alt={{article.feed_image_thumbnail.alt}} class="article-list__image article-list__image--small" height={{article.feed_image_thumbnail.height}} width={{article.feed_image_thumbnail.width}} />
+              </a>
+            {% endif %}
           <a href="/{{ article.id }}/" {% if not forloop.first %}class="article-list__inner-content"{% endif %}>
             <h2 class="article-list__title">{{article.title}}</h2>
             {% if article.subtitle %}

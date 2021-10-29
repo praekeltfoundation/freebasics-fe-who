@@ -12,13 +12,13 @@ url = settings.CONTENTREPO_URL
 )
 def section_listing_homepage(context):
     section_listing = []
-    sections = requests.get(url + "/api/v2/indexes/").json()["results"]
+    sections = requests.get(url + "/api/v2/indexes/?locale=" + settings.LANGUAGE_CODE).json()["results"]
     for section in sections:
         item = {}
         item["section"] = section
-        item["articles"] = requests.get(url + "/api/v2/pages/?parent=" + str(section["id"]) + "&type=home.ContentPage&fields=subtitle").json()["results"]
+        item["articles"] = requests.get(url + "/api/v2/pages/?fields=subtitle,feed_image_thumbnail&type=home.ContentPage&parent=" + str(section["id"]) + "&locale=" + settings.LANGUAGE_CODE).json()["results"]
         section_listing.append(item)
-    return {"sections": section_listing}
+    return {"sections": section_listing, "contentrepo_url": url}
 
 @register.inclusion_tag(
     'core/tags/breadcrumbs.html',
@@ -26,8 +26,6 @@ def section_listing_homepage(context):
 )
 def breadcrumbs(context):
     id = context["request"].path.split("/")[-2]
-    print(context["request"].path.split("/"))
-    print(id, "is the id")
     ancestors = requests.get(url + "/api/v2/pages/?ancestor_of=" + id).json()["results"]
     print(ancestors)
     return {"ancestors": ancestors}

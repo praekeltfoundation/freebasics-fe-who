@@ -74,7 +74,7 @@ WSGI_APPLICATION = 'freebasics.wsgi.application'
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'UTC'
 
@@ -84,10 +84,33 @@ USE_L10N = True
 
 USE_TZ = True
 
+LANGUAGES = [
+    ("ar", "Arabic"),
+    ("id", "Bahasa"),
+    ("bn", "Bangla"),
+    ("zh", "Chinese"),
+    ("prs", "Dari"),
+    ("en", "English"),
+    ("fr", "French"),
+    ("ha", "Hausa"),
+    ("hi", "Hindi"),
+    ("it", "Italian"),
+    ("ku", "Kurdish"),
+    ("lv", "Latvian"),
+    ("ps", "Pashto"),
+    ("pl", "Polish"),
+    ("pt", "Portuguese"),
+    ("ru", "Russian"),
+    ("so", "Somali"),
+    ("es", "Spanish"),
+    ("sw", "Swahili"),
+    ("ur", "Urdu"),
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
 
-CONTENTREPO_URL = "https://05f1-165-255-11-2.ngrok.io"
+CONTENTREPO_URL = "https://84ba-165-255-11-2.ngrok.io"
