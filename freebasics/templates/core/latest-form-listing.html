@@ -1,0 +1,17 @@
+{% if forms %}
+<div class="surveys-main">
+    <div class="surveys-main__intro">
+        Please take one of the survey below
+    </div>
+
+    <ul class="surveys-main__list">
+        {% for form_item in forms %}
+        <li class="surveys-main__list__item">
+            <a href="{{ form_item.url }}" class="surveys-main__list__item__link">
+                {{ form_item.title }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}

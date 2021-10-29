@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Search" %}{% endblock %}
+{% block content %}
+{% if search_results %}
+  <h2 class="heading heading--search">{% trans "Search Results for:" %} &quot;{{search_query}}&quot;</h2>
+  <div class="search search--result">
+    <ul class="article-list">
+      {% for page in search_results %}
+      <li class="article-list__item article-list__item{{page.get_parent_section.get_effective_extra_style_hints}}">
+        <div class="article-list__container">
+          <a href="/{{page.id}}/}" class="search__result-item article-list__image-content">
+            {% if page.feed_image_thumbnail %}
+              <img src="{{ contentrepo_url }}{{page.feed_image_thumbnail.url}}" alt={{feed_image_thumbnail.alt}} class="article-list__image article-list__image--small" height={{page.feed_image_thumbnail.height}} width={{page.feed_image_thumbnail.width}} />
+            {% endif %}
+          </a>
+            <a href="/{{page.id}}/" class="search__result-item article-list__inner-content">
+                <h2 class="search--result__title">{{page.title}}</h2>
+                <p class="search--result__subtitle">{{page.subtitle}}</p>
+            </a>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% else %}
+  <div class="search search--results">
+    <form action="{% url 'search' %}" id="search-form" class="search-form">
+      <input placeholder="{% trans "Search the site..." %}" name="q" type="search">
+      <button class="search__submit" type="submit" value="{% trans 'Search' %}">{% trans 'Search' %}</button>
+    </form>
+  </div>
+  <div class="search">
+    <h2 class="heading heading--search">{% trans "Search Results for:" %} &quot;{{search_query}}&quot;</h2>
+    <h3 class="search__feedback-title">
+      {% trans "No search results were found for " %} &quot;{{search_query}}&quot;
+    </h3>
+    <a href="/" class="call-to-action__nav-item call-to-action__nav-item--back-home">{% trans "Back to homepage" %}</a>
+  </div>
+{% endif %}
+{% endblock %}
+{% block search %}
+  {% if search_results %}
+      {% include "search/search_block.html" %}
+  {% endif %}
+{% endblock %}

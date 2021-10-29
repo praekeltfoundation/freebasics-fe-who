@@ -1,0 +1,14 @@
+
+{% load freebasics_tags i18n %}
+{% if ancestors %}
+  <li class="section-list-nav__item">
+    <a href="/" class="section-list-nav__link">{% trans "Home" %}</a>
+  </li>
+  {% for ancestor in ancestors %}
+  <li class="section-list-nav__item {% if forloop.last %}section-list-nav__item--current{% endif %}">
+      <a href="/sections/{{ancestor.id}}/" class="section-list-nav__link">
+        {{ ancestor.title }}
+      </a>
+  </li>
+  {% endfor %}
+{% endif %}
