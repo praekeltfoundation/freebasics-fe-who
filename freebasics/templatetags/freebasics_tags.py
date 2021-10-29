@@ -27,5 +27,4 @@ def section_listing_homepage(context):
 def breadcrumbs(context):
     id = context["request"].path.split("/")[-2]
     ancestors = requests.get(url + "/api/v2/pages/?ancestor_of=" + id).json()["results"]
-    print(ancestors)
     return {"ancestors": ancestors}
